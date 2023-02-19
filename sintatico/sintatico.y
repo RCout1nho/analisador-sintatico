@@ -25,6 +25,8 @@ void yyerror(const char *);
 
 %%
 programa: lista-decl
+        | lista-com
+        | exp
         ;
 
 lista-decl: lista-decl decl
@@ -36,6 +38,7 @@ decl: decl-var
     ;
 
 decl-var: espec-tipo var SP_PT_VIRG { printf("Declaração de variável\n"); }
+        | programa
         ;
 
 espec-tipo: INT
@@ -70,10 +73,10 @@ comando: com-expr SP_PT_VIRG
        | com-retorno SP_PT_VIRG
        ;
 
-com-expr: exp
+com-expr: exp {printf("Expressão\n");}
         ;
 
-com-atrib: var OP_ATRIB exp
+com-atrib: var OP_ATRIB exp {printf("Atribuição\n");}
          ;
 
 com-comp: SP_CHV_A decl-locais lista-com SP_CHV_F
@@ -92,11 +95,12 @@ com-retorno: RETURN SP_PT_VIRG
            ;
 
 lista-com: lista-com comando
-         | /* vazio */
+         | comando
          ;
 
 exp: exp-soma
    | exp-soma op-relac exp-soma
+   | ID
    ;
 
 op-relac: OP_MENOR
