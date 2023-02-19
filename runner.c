@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     printf("Análise léxica concluída com sucesso\n");
 
     // Execute o segundo arquivo executável
-    ret = system("./sintatico/sintatico < saida.txt");
+    ret = system("./sintatico/sintatico.o < saida.txt");
 
     // Verifique se houve algum erro ao executar o arquivo
     if (ret != 0)
