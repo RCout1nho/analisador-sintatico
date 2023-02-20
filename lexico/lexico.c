@@ -251,11 +251,15 @@ int main(int argc, char **argv) {
     int beautify_output = atoi(argv[2]);
 
     char ch;
+    int errors = 0;
 
     do {
         ch = prox_char(file);
         tupla_token_t token = analex(ch, file);
         if (strcmp(token.tipo, SKIP) != 0) {
+            if(token.error){
+                errors++;
+            }
             if (beautify_output) {
                 grava_token_beautify(token.tipo, token.lexema, token.error);
             } else {
@@ -264,4 +268,8 @@ int main(int argc, char **argv) {
         }
     } while (ch != EOF);
     fclose(file);
+    if(errors> 0){
+        return 1;
+    }
+    return 0;
 }
