@@ -1,3 +1,0 @@
-INT
-ID
-SP_PT_VIRG
